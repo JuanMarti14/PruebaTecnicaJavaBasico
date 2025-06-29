@@ -2,6 +2,7 @@ package org.example.controllers;
 
 import com.mysql.cj.xdevapi.Client;
 import jakarta.persistence.EntityManager;
+import org.example.Sexo;
 import org.example.entities.Cliente;
 import org.example.persistence.ClienteJPA;
 import org.example.persistence.ConfigJPA;
@@ -26,13 +27,37 @@ public class ClienteController {
 
         System.out.println("Ingrese los apellidos: ");
         String apellidos = sc.nextLine();
-        System.out.println("Ingrese el sexo (hombre, mujer, otro: ");
-        String sexo = sc.nextLine();
+
+        System.out.println("Ingres el sexo (1) HOMBRE, (2) MUJER, (3) OTRO.");
+        int opcion = sc.nextInt();
+        sc.nextLine();
+        Sexo sexo;
+        switch (opcion){
+            case 1:
+                sexo = Sexo.HOMBRE;
+                break;
+            case 2:
+                sexo = Sexo.MUJER;
+                break;
+            default:
+                sexo = Sexo.OTRO;
+        }
+
+
         System.out.println("Ingrese la ciudad: ");
         String ciudad = sc.nextLine();
-        System.out.println("Ingrese la fecha nacimiento aaaa-mm-dd: ");
-        String fechaTexto = sc.nextLine();
-        LocalDate fechaNacimeinto = LocalDate.parse(fechaTexto);
+
+        LocalDate fechaNacimiento = null;
+        while (fechaNacimiento == null) {
+            System.out.println("Ingrese la fecha nacimiento aaaa-mm-dd: ");
+            String fechaTexto = sc. nextLine();
+            try{
+                fechaNacimiento = LocalDate.parse(fechaTexto);
+            }  catch (Exception e)  {
+                System.out.println("Formato invalido, el formato tiene que ser aaaa-mm-dd.");
+            }
+        }
+
         String telefono;
         do {
             System.out.println("Ingrese el teléfono: ");
@@ -50,7 +75,7 @@ public class ClienteController {
         cliente.setApellidos(apellidos);
         cliente.setSexo(sexo);
         cliente.setCiudad(ciudad);
-        cliente.setFechaNacimiento(fechaNacimeinto);
+        cliente.setFechaNacimiento(fechaNacimiento);
         cliente.setTelefono(telefono);
         cliente.setEmail(email);
 
@@ -104,18 +129,37 @@ public class ClienteController {
                         cliente.setApellidos(sc.nextLine());
                         break;
                     case 3:
-                        System.out.println("Ingrese un sexo nuevo:");
-                        cliente.setSexo(sc.nextLine());
+                        System.out.println("Ingres el sexo (1) HOMBRE, (2) MUJER, (3) OTRO.");
+                        Sexo sexo = null;
+                        int opcion = sc.nextInt();
+                        sc.nextLine();
+                        switch (opcion){
+                            case 1:
+                                sexo = Sexo.HOMBRE;
+                                break;
+                            case 2:
+                                sexo = Sexo.MUJER;
+                                break;
+                            default:
+                                sexo = Sexo.OTRO;
+                        }
                         break;
                     case 4:
                         System.out.println("Ingrese una ciudad nueva:");
                         cliente.setCiudad(sc.nextLine());
                         break;
                     case 5:
-                        System.out.println("Ingrese una fecha de nacimiento nueva:");
-                        String fechaTexto = sc.nextLine();
-                        LocalDate fechaNacimeinto = LocalDate.parse(fechaTexto);
-                        cliente.setFechaNacimiento(fechaNacimeinto);
+                        LocalDate fechaNacimiento = null;
+                        while (fechaNacimiento == null) {
+                            System.out.println("Ingrese la nueva fecha nacimiento aaaa-mm-dd: ");
+                            String fechaTexto = sc. nextLine();
+                            try{
+                                fechaNacimiento = LocalDate.parse(fechaTexto);
+                            }  catch (Exception e)  {
+                                System.out.println("Formato invalido, el formato tiene que ser aaaa-mm-dd.");
+                            }
+                        }
+                        cliente.setFechaNacimiento(fechaNacimiento);
                         break;
                     case 6:
                         String telefonoNuevo;

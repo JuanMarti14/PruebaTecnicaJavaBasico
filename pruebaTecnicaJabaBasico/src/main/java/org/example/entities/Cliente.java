@@ -1,6 +1,7 @@
 package org.example.entities;
 
 import jakarta.persistence.*;
+import org.example.Sexo;
 
 import java.time.LocalDate;
 
@@ -14,8 +15,7 @@ public class Cliente {
     @Column(nullable = false)
     String nombre;
     String apellidos;
-    String sexo;
-    // Sexo sexo;
+    Sexo sexo;
     String ciudad;
     LocalDate fechaNacimiento;
     @Column(nullable = false, length = 9)
@@ -25,7 +25,7 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(String nombre, String apellidos, String sexo, String ciudad, LocalDate fechaNacimiento, String telefono, String email) {
+    public Cliente(String nombre, String apellidos, Sexo sexo, String ciudad, LocalDate fechaNacimiento, String telefono, String email) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.sexo = sexo;
@@ -47,7 +47,7 @@ public class Cliente {
         return apellidos;
     }
 
-    public String getSexo() {
+    public Sexo getSexo() {
         return sexo;
     }
 
@@ -75,7 +75,7 @@ public class Cliente {
         this.apellidos = apellidos;
     }
 
-    public void setSexo(String sexo) {
+    public void setSexo(Sexo sexo) {
         this.sexo = sexo;
     }
 
